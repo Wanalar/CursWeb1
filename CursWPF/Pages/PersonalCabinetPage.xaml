@@ -25,7 +25,7 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <Label Content="Счёт"/>
-                    <Label Content="{Binding User.Bill}"/>
+                    <Label Content="{Binding OldBill.Bill}"/>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="Введите сумму"/>

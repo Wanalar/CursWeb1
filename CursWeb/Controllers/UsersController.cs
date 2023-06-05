@@ -90,17 +90,23 @@ namespace CursWeb.Controllers
 
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        public User User { get; set; }
         [HttpPost("SaveUser")]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            if (_context.Users == null)
+            var origin = await _context.Users.FirstOrDefaultAsync( s => s.Email == user.Email || s.Login == user.Login);
+            
+            if(origin == null)
             {
-                return Problem("Entity set 'Avto_VakzalContext.Users'  is null.");
+                this.User = new User() { Role = 3, Password = user.Password, FirstName = user.FirstName, SecondName = user.SecondName, Patronymic = user.Patronymic, Email= user.Email, PhonNumber = user.PhonNumber, Login = user.Login };
+                _context.Users.Add(User);
+                await _context.SaveChangesAsync();
             }
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            else
+            {
+                return BadRequest("Пользователь с таким логином или почтой уже существует!");
+            }
+            return User;
         }
 
         // DELETE: api/Users/5

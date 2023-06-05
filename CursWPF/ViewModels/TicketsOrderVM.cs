@@ -5,9 +5,12 @@ using Microsoft.AspNetCore.SignalR.Protocol;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.EntityFrameworkCore;
 
 namespace CursWPF.ViewModels
 {
@@ -51,11 +54,12 @@ namespace CursWPF.ViewModels
             });
             Save = new CommandVM(() =>
             {
+                var user = Avto_VakzalContext.GetInstance().Users.FirstOrDefault(s => s.UserId == User.UserId);
                 if (SelectedTrip != null)
                 {
                     if (EntryCost == Trip.Cost)
                     {
-                        if(EntryCost > User.Bill)
+                        if(EntryCost > user.Bill || user.Bill == null)
                         {
                             MessageBox.Show("У вас недостаточно средств");
                             return;
@@ -65,19 +69,20 @@ namespace CursWPF.ViewModels
                             Bus = Avto_VakzalContext.GetInstance().Buses.FirstOrDefault(s => s.BusId == SelectedTrip.Bus);
                             if (Bus.Site != 0)
                             {
-                                Ticket = new Ticket() { Iduser = User.UserId, Trip = SelectedTrip.TripId };
+                                Ticket = new Ticket() { Iduser = user.UserId, Trip = SelectedTrip.TripId };
                                 Avto_VakzalContext.GetInstance().Tickets.Add(Ticket);
                                 Avto_VakzalContext.GetInstance().SaveChanges();
 
-                                User = Avto_VakzalContext.GetInstance().Users.FirstOrDefault(s => s.UserId == User.UserId);
-                                User.Bill = User.Bill - EntryCost;
-                                Avto_VakzalContext.GetInstance().Users.Update(User);
+                                user = Avto_VakzalContext.GetInstance().Users.FirstOrDefault(s => s.UserId == user.UserId);
+                                user.Bill = user.Bill - EntryCost;
+                                Avto_VakzalContext.GetInstance().Users.Update(user);
                                 Avto_VakzalContext.GetInstance().SaveChanges();
 
                                 Bus.Site = Bus.Site - 1;
                                 Avto_VakzalContext.GetInstance().Buses.Update(Bus);
                                 Avto_VakzalContext.GetInstance().SaveChanges();
                                 MessageBox.Show("Билет успешно куплен");
+                                SendEmailAsync();
                                 win.Close();
                                 return;
                             }
@@ -104,6 +109,20 @@ namespace CursWPF.ViewModels
             });
 
             
+        }
+
+        private async Task SendEmailAsync()
+        {
+            var lastTicket = Avto_VakzalContext.GetInstance().Tickets.ToList().LastOrDefault( s => s.Iduser == User.UserId);
+            MailAddress from = new MailAddress("persaevkirill@gmail.com", "Автовокзал");
+            MailAddress to = new MailAddress($"{User.Email}");
+            MailMessage m = new MailMessage(from, to);
+            m.Subject = "Покупка билета";
+            m.Body = $"Вы купили билет на маршрут {lastTicket.TripNavigation.BusStop} на сумму {lastTicket.TripNavigation.Cost}";
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new NetworkCredential("persaevkirill@gmail.com", "gwjf fyvu jpzh fyvc");
+            smtp.EnableSsl = true;
+            await smtp.SendMailAsync(m);
         }
         public List<Trip> Trips { get; set; }
         

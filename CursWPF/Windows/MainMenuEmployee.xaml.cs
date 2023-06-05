@@ -27,11 +27,12 @@ namespace CursWPF.Windows
         {
             User= user;
             InitializeComponent();
-            DataContext = new MainMenuGuestVM(user);
+            DataContext = new MainMenuAdminVM(User);
         }
 
         private void AddTrip(object sender, RoutedEventArgs e)
         {
+            
             TripsCreate f = new TripsCreate(User);
             f.Show();
         }

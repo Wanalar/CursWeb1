@@ -15,6 +15,7 @@ namespace CursWPF.ViewModels
     {
         private User user;
         private decimal money;
+        private User oldBill;
 
         public User User
         {
@@ -25,7 +26,7 @@ namespace CursWPF.ViewModels
                 Signal();
             }
         }
-        public decimal Money 
+        public decimal Money
         {
             get => money;
             set
@@ -35,34 +36,45 @@ namespace CursWPF.ViewModels
             }
         }
         public CommandVM AddMoney { get; set; }
+        public User OldBill 
+        {
+            get => oldBill;
+            set
+            {
+                oldBill = value;
+                Signal();
+            }
+        }
         public PersonalCabinetPageVM(CursLib.Models.User user)
         {
             User = user;
+            Signal(nameof(User.Bill));
+            OldBill = Avto_VakzalContext.GetInstance().Users.FirstOrDefault(s => s.UserId == User.UserId);
             AddMoney = new CommandVM(() =>
             {
                 if (Money > 0)
                 {
-                    var oldBill = Avto_VakzalContext.GetInstance().Users.FirstOrDefault(s => s.UserId == User.UserId);
-                    if (oldBill.Bill == null)
+
+                    if (OldBill.Bill == null)
                     {
-                        oldBill.Bill = Money;
-                        Avto_VakzalContext.GetInstance().Users.Update(oldBill);
+                        OldBill.Bill = Money;
+                        Avto_VakzalContext.GetInstance().Users.Update(OldBill);
                         Avto_VakzalContext.GetInstance().SaveChanges();
                         MessageBox.Show("Вы пополнили счёт");
                         Money = 0;
                         Signal(nameof(Money));
-                        User = Avto_VakzalContext.GetInstance().Users.FirstOrDefault(s => s.UserId == User.UserId);
+                        OldBill = Avto_VakzalContext.GetInstance().Users.FirstOrDefault(s => s.UserId == User.UserId);
                         return;
                     }
                     else
                     {
-                        oldBill.Bill = oldBill.Bill += Money;
-                        Avto_VakzalContext.GetInstance().Users.Update(oldBill);
+                        OldBill.Bill = OldBill.Bill += Money;
+                        Avto_VakzalContext.GetInstance().Users.Update(OldBill);
                         Avto_VakzalContext.GetInstance().SaveChanges();
                         MessageBox.Show("Вы пополнили счёт");
                         Money = 0;
                         Signal(nameof(Money));
-                        User = Avto_VakzalContext.GetInstance().Users.FirstOrDefault(s => s.UserId == User.UserId);
+                        OldBill = Avto_VakzalContext.GetInstance().Users.FirstOrDefault(s => s.UserId == User.UserId);
                         return;
                     }
 

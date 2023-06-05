@@ -1,8 +1,10 @@
 ﻿using CursLib.Models;
+using CursWeb;
 using CursWPF.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -43,30 +45,35 @@ namespace CursWPF
 
         private async void Register(object sender, RoutedEventArgs e)
         {
-            var json = await HttpApi.Post("Users", "SaveUser", new User
+            User = Avto_VakzalContext.GetInstance().Users.FirstOrDefault(s => s.Email == txt_Email.Text || s.Login == txt_Login.Text);
+            if(User == null)
             {
-                FirstName = txt_Name.Text,
-                SecondName = txt_LastName.Text,
-                Patronymic = txt_PatronomycName.Text,
-                PhonNumber = long.Parse(txt_Phone.Text),
-                Email = txt_Email.Text,
-                Login = txt_Login.Text,
-                Password = txt_Password.Text,
-                Role = 3
+                var json = await HttpApi.Post("Users", "SaveUser", new User
+                {
+                    FirstName = txt_Name.Text,
+                    SecondName = txt_LastName.Text,
+                    Patronymic = txt_PatronomycName.Text,
+                    PhonNumber = long.Parse(txt_Phone.Text),
+                    Email = txt_Email.Text,
+                    Login = txt_Login.Text,
+                    Password = txt_Password.Text,
+                    Role = 3
 
-            });
-            User result = HttpApi.Deserialize<User>(json);
-            User= result;
-
-
-            MainMenu m = new MainMenu(User);
-            m.Show();
-            this.Close();
-
-
+                });
+                User result = HttpApi.Deserialize<User>(json);
             
+                User = result;
 
 
+                MainMenu m = new MainMenu(User);
+                m.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Пользователь с таким логином или почтой уже существует!");
+                return;
+            }
         }
     }
 }

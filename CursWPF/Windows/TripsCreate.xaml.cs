@@ -21,10 +21,10 @@ namespace CursWPF.Windows
     /// </summary>
     public partial class TripsCreate : Window
     {
-        public TripsCreate(User user)
+        public TripsCreate(CursLib.Models.User user)
         {
             InitializeComponent();
-            DataContext = new MainMenuGuestVM(user);
+            DataContext = new MainMenuAdminVM(user);
         }
     }
 }

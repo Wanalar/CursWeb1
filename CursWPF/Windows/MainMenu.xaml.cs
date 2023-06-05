@@ -29,19 +29,10 @@ namespace CursWPF
             DataContext = new MainMenuGuestVM(User);
         }
 
-        
-
         private void Exit(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
-            this.Close();
-        }
-
-        private void Trip(object sender, RoutedEventArgs e)
-        {
-            MainMenu mainMenu = new MainMenu(User);
-            mainMenu.Show();
             this.Close();
         }
 

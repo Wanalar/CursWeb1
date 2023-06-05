@@ -7,12 +7,6 @@
         mc:Ignorable="d"
        Title="Автобусные рейсы" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
-    <Window.Resources>
-        <ContextMenu x:Key="ListView">
-            
-        </ContextMenu>
-    </Window.Resources>
-
 
     <Grid>
         <Menu VerticalAlignment="Top" Height="28">
@@ -25,21 +19,11 @@
 
             </MenuItem>
             <MenuItem Header="Оформление Билета" Command="{Binding nav_ticketsEmploy}"/>
-            <MenuItem Header="Маршруты" Click="Trip"/>
+            <MenuItem Header="Маршруты" Command="{Binding nav_Trips}"/>
 
         </Menu>
 
-        <ListView Margin="0,28,0,0" ItemsSource="{Binding Trip}" SelectedItem="{Binding SelectedItem}"  ContextMenu="{StaticResource ListView}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Маршрут" DisplayMemberBinding="{Binding BusStop}"/>
-                    <GridViewColumn Header="Время отбытия" DisplayMemberBinding="{Binding DepartureTime}"/>
-                    <GridViewColumn Header="Время прибытия" DisplayMemberBinding="{Binding ArivalTime}"/>
-                    <GridViewColumn Header="Номер Автобуса" DisplayMemberBinding="{Binding BusNavigation.Number}"/>
-                    <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Cost}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        
         <Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden" Margin="0,28,0,0"/>
     </Grid>
 </Window>

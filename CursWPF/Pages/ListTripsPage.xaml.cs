@@ -1,6 +1,4 @@
-﻿using CursLib.Models;
-using CursWPF.ViewModels;
-using CursWPF.Windows;
+﻿using CursWPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,23 +17,14 @@ using System.Windows.Shapes;
 namespace CursWPF.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для ListTickets.xaml
+    /// Логика взаимодействия для ListTripsPage.xaml
     /// </summary>
-    public partial class ListTickets : Page
+    public partial class ListTripsPage : Page
     {
-        public User User { get; set; }
-        
-
-        public ListTickets()
+        public ListTripsPage(CursLib.Models.User user)
         {
             InitializeComponent();
-            DataContext = new ListTicketsVM();
-        }
-
-        private void TicketOrder(object sender, RoutedEventArgs e)
-        {
-            TicketsOrder f = new TicketsOrder(User);
-            f.Show();
+            DataContext = new ListTripsPageVM(user);
         }
     }
 }

@@ -31,7 +31,13 @@
             <MenuItem Header="Актуальная информация" Command="{Binding nav_infosEmploy}"/>
         </Menu>
 
-        <ListView Margin="0,28,0,0" ItemsSource="{Binding Trip}" SelectedItem="{Binding SelectedItem}"  ContextMenu="{StaticResource ListView}">
+        <ListView Margin="0,28,0,0" ItemsSource="{Binding Trip}" SelectedItem="{Binding SelectedItem}">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить" Click="AddTrip" />
+                    <MenuItem Header="Удалить" Command="{Binding DeleteTrip}"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Маршрут" DisplayMemberBinding="{Binding BusStop}"/>
