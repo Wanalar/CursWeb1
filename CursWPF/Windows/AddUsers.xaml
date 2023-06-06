@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CursWPF.Windows"
         mc:Ignorable="d"
-        Title="AddUsers" Height="450" Width="800">
+        Title="Добавить пользователя" Height="450" Width="800">
     <Grid>
         <Label Content="Имя:" HorizontalAlignment="Left" Margin="21,44,0,0" VerticalAlignment="Top"/>
         <Label Content="Фамилия:" HorizontalAlignment="Left" Margin="21,70,0,0" VerticalAlignment="Top"/>

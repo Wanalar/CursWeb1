@@ -10,25 +10,44 @@
 
     <Grid Background="White">
         <StackPanel>
-            <Label Content="Фамилия"/>
-            <Label Content="{Binding User.SecondName}"/>
-            <Label Content="Имя"/>
-            <Label Content="{Binding User.FirstName}"/>
-            <Label Content="Отчество"/>
-            <Label Content="{Binding User.Patronymic}"/>
-            <Label Content="Эл. почта"/>
-            <Label Content="{Binding User.Email}"/>
-            <Label Content="Номер телефона"/>
-            <Label Content="{Binding User.PhonNumber}"/>
-            <Label Content="Логин"/>
-            <Label Content="{Binding User.Login}"/>
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
-                    <Label Content="Счёт"/>
+                    <Label FontWeight="Bold" Content="Фамилия"/>
+                    <Label Content="{Binding User.SecondName}"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label FontWeight="Bold" Content="Имя"/>
+                    <Label Content="{Binding User.FirstName}"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label FontWeight="Bold" Content="Отчество"/>
+                    <Label Content="{Binding User.Patronymic}"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <Label FontWeight="Bold" Content="Эл. почта"/>
+                    <Label Content="{Binding User.Email}"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label FontWeight="Bold" Content="Номер телефона"/>
+                    <Label Content="{Binding User.PhonNumber}"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label FontWeight="Bold" Content="Логин"/>
+                    <Label Content="{Binding User.Login}"/>
+                </StackPanel>
+                
+            </StackPanel>
+            
+            
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <Label FontWeight="Bold" Content="Счёт"/>
                     <Label Content="{Binding OldBill.Bill}"/>
                 </StackPanel>
                 <StackPanel>
-                    <Label Content="Введите сумму"/>
+                    <Label FontWeight="Bold" Content="Введите сумму"/>
                     <TextBox Text="{Binding Money}"/>
                     <Button Content="Поплнить" Command="{Binding AddMoney}"/>
                 </StackPanel>

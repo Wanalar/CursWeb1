@@ -30,7 +30,7 @@ namespace CursWPF.Pages
         {
             User = user;
             InitializeComponent();
-            DataContext = new ListTicketsVM();
+            DataContext = new ListTicketsEmployVM(user);
         }
 
         private void TicketOrder(object sender, RoutedEventArgs e)

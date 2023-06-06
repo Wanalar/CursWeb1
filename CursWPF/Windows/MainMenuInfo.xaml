@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CursWPF.Windows"
         mc:Ignorable="d"
-        Title="Информационное табло" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Меню Информатора" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <ContextMenu x:Key="ListView">

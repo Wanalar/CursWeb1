@@ -9,16 +9,21 @@
       Title="ListTicketsEmploy">
 
     <Grid Background="White">
-        <ListView ItemsSource="{Binding Ticket}" SelectedItem="{Binding SelectedItem}" Margin="0,31,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Margin="36 0 0 0" MinWidth="127" Grid.Row="0" Content="Покупка билета" Click="TicketOrder" HorizontalAlignment="Left" Height="31" Width="104"/>
+        <Label Grid.Row="0" HorizontalAlignment="Center" FontWeight="Bold" Content="Ваши билеты"/>
+        <ListView Grid.Row="1" ItemsSource="{Binding Ticket}" SelectedItem="{Binding SelectedItem}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Пользователь" DisplayMemberBinding="{Binding IduserNavigation.FirstName}"/>
+                    <GridViewColumn Header="Пользователь" DisplayMemberBinding="{Binding IduserNavigation.Login}"/>
                     <GridViewColumn Header="Остановки" DisplayMemberBinding="{Binding TripNavigation.BusStop}"/>
                     <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Date, StringFormat='dd/MM/yyyy'}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Оформить билет" Click="TicketOrder" HorizontalAlignment="Left" Margin="321,0,0,0" VerticalAlignment="Top" Height="31" Width="104"/>
         
     </Grid>
 </Page>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CursWPF"
         mc:Ignorable="d"
-       Title="Автобусные рейсы" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+       Title="Меню пользователя" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
 
     <Grid>

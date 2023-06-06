@@ -23,13 +23,13 @@ namespace CursWeb.Controllers
 
         // GET: api/Tickets
         [HttpPost("ListTickets")]
-        public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
+        public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets(User user)
         {
           if (_context.Tickets == null)
           {
               return NotFound();
           }
-            return await _context.Tickets.Include(s => s.IduserNavigation).Include(s => s.TripNavigation).ToListAsync();
+            return await _context.Tickets.Include(s => s.IduserNavigation).Include(s => s.TripNavigation).Where( s => s.Iduser == user.UserId).ToListAsync();
         }
 
         // GET: api/Tickets/5
