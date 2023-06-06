@@ -20,7 +20,7 @@ public class Program
         builder.Services.AddSwaggerGen();
         builder.Services.AddAuthentication();
 
-        builder.Services.AddSqlServer<Avto_VakzalContext>("server=VLADIMIR;database=Avto_Vakzal;Trusted_Connection=True");
+        builder.Services.AddSqlServer<Avto_VakzalContext>("server=192.168.200.35;user=user18;password=38024;database=user18");
 
         //server=192.168.200.35;user=user18;password=38024;database=user18; (колледж)
         //"server=VLADIMIR;database=Avto_Vakzal;Trusted_Connection=True" (дома)

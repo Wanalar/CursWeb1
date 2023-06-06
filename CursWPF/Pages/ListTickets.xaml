@@ -18,6 +18,6 @@
             </ListView.View>
         </ListView>
         <Button Content="Оформить билет" Click="TicketOrder" HorizontalAlignment="Left" Margin="321,0,0,0" VerticalAlignment="Top" Height="31" Width="104"/>
-        <Button Content="Удалить" Command="{Binding DeleteTicket}" HorizontalAlignment="Left" Margin="430,0,0,0" VerticalAlignment="Top" Height="31" Width="93"/>
+        <Button Content="Удалить" Command="{Binding DeleteTickets}" HorizontalAlignment="Left" Margin="430,0,0,0" VerticalAlignment="Top" Height="31" Width="93"/>
     </Grid>
 </Page>

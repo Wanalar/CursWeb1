@@ -14,7 +14,7 @@
                 <GridView>
                     <GridViewColumn Header="Пользователь" DisplayMemberBinding="{Binding IduserNavigation.FirstName}"/>
                     <GridViewColumn Header="Остановки" DisplayMemberBinding="{Binding TripNavigation.BusStop}"/>
-
+                    <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Date, StringFormat='dd/MM/yyyy'}"/>
                 </GridView>
             </ListView.View>
         </ListView>

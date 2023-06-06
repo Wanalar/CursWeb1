@@ -13,6 +13,10 @@
                 <ComboBox Margin="0 0 10 0" ItemsSource="{Binding Trips}" SelectedItem="{Binding SelectedTrip}" DisplayMemberPath="BusStop"  Height="21" Width="131" Background="#FFE2CFCF" />
                 <Button Content="Стоимость" Command="{Binding Cost}"/>
             </StackPanel>
+            <StackPanel>
+                <Label Content="Выберите дату"/>
+                <DatePicker SelectedDate="{Binding DateDeparture}"/>
+            </StackPanel>
 
             <StackPanel Margin="0 0 0 15" Orientation="Horizontal">
                 <Label Margin="0 0 10 0" Content="Цена билета :"/>

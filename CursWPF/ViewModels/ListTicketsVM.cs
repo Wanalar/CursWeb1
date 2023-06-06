@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace CursWPF.ViewModels
@@ -58,7 +59,8 @@ namespace CursWPF.ViewModels
             }
         }
 
-        public CommandVM DeleteTicket { get; set; }
+        
+        public CommandVM DeleteTickets { get; set; }
         public CommandVM Save { get; set; }
 
 
@@ -76,6 +78,31 @@ namespace CursWPF.ViewModels
                 Trip = HttpApi.Deserialize<List<Trip>>(json3);
             });
 
+            DeleteTickets = new CommandVM(async () =>
+            {
+                if (SelectedItem == null)
+                {
+                    MessageBox.Show("Ошибка");
+                }
+                else
+                {
+                    var json = await HttpApi.Post("Tickets", "delete", SelectedItem.TicketId);
+
+                    Task.Run(async () =>
+                    {
+                        var json = await HttpApi.Post("Tickets", "ListTickets", null);
+                        Ticket = HttpApi.Deserialize<List<Ticket>>(json);
+
+                        var json2 = await HttpApi.Post("Users", "ListUsers", null);
+                        User = HttpApi.Deserialize<List<User>>(json2);
+
+                        var json3 = await HttpApi.Post("Trips", "ListTrips", null);
+                        Trip = HttpApi.Deserialize<List<Trip>>(json3);
+
+
+                    });
+                }
+            });
         }
     }
 }
